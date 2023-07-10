@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- adding bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
@@ -15,7 +21,7 @@
         <!-- one big row that will have 2 columns  -->
         <section class="row d-flex justify-content-center">
             <div class="col-3 d-block">
-                    <h2>Search for City: </h2>
+                    <h2 class="fw-bold">Search for City: </h2>
                     <input id="search-input" class="my-2 p-1" type="text" placeholder="San Diego" style="width: 90%;">
                     <button id="search-btn" class="p-1 btn btn-primary" style="width: 90%;">Search</button>
                     <hr style="width: 90%;">
@@ -27,56 +33,59 @@
             <div class="col-8">
                 <!-- 2 rows, 1 for city name part, 1 for weather cards -->
                 <div class="border border-primary border-3 p-2 mb-5 rounded" style="height: 30vh;">
-                        <h2 id="city-name">Atlanta</h2>
+                        <h2 id="city-name" class="fw-bold">Atlanta (<span class="weather-date"></span>) <span class="emoji">🍕</span></h2>
+                        <h3>Temp: <span class="temp-text"></span></h3>
+                        <h3>Wind: <span class="wind-text"></span></h3>
+                        <h3>Humidity: <span class="humidity-text"></span></h3>
                 </div>
                 
                 <div class="row">
-                    <h3>5-Day Forecast:</h3>
+                    <h3 class="fw-bold">5-Day Forecast:</h3>
                     <!-- make 5 cards -->
                     <div class="d-flex justify-content-evenly">
-                        <div class="card" style="width: 18%;">
+                        <div class="card" style="width: 20%; margin-right: 1%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
-                                <h5 class="card-subtitle emoji">🍕</h5>
-                                <p class="card-text temp-text">Somethings about card temperature</p>
-                                <p class="card-text wind-text">Somethings about card wind</p>
-                                <p class="card-text Humidity-text">Somethings about card humidity</p>
+                                <h5 class="card-subtitle my-2 emoji">🍕</h5>
+                                <p class="card-text">Temp: <span class="temp-text"></span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18%;"> 
+                        <div class="card" style="width: 20%; margin-right: 1%;"> 
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
-                                <h5 class="card-subtitle emoji">🍕</h5>
-                                <p class="card-text temp-text">Somethings about card temperature</p>
-                                <p class="card-text wind-text">Somethings about card wind</p>
-                                <p class="card-text Humidity-text">Somethings about card humidity</p>
+                                <h5 class="card-subtitle my-2 emoji">🍕</h5>
+                                <p class="card-text">Temp: <span class="temp-text"></span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18%;">
+                        <div class="card mx-1" style="width: 20%; margin-right: 1%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
-                                <h5 class="card-subtitle emoji">🍕</h5>
-                                <p class="card-text temp-text">Somethings about card temperature</p>
-                                <p class="card-text wind-text">Somethings about card wind</p>
-                                <p class="card-text Humidity-text">Somethings about card humidity</p>
+                                <h5 class="card-subtitle my-2 emoji">🍕</h5>
+                                <p class="card-text">Temp: <span class="temp-text"></span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18%;">
+                        <div class="card mx-1" style="width: 20%; margin-right: 1%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
-                                <h5 class="card-subtitle emoji">🍕</h5>
-                                <p class="card-text temp-text">Somethings about card temperature</p>
-                                <p class="card-text wind-text">Somethings about card wind</p>
-                                <p class="card-text Humidity-text">Somethings about card humidity</p>
+                                <h5 class="card-subtitle my-2 emoji">🍕</h5>
+                                <p class="card-text">Temp: <span class="temp-text"></span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
                             </div>
                         </div>
-                        <div class="card" style="width: 18%;">
+                        <div class="card mx-1" style="width: 20%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
-                                <h5 class="card-subtitle emoji">🍕</h5>
-                                <p class="card-text temp-text">Somethings about card temperature</p>
-                                <p class="card-text wind-text">Somethings about card wind</p>
-                                <p class="card-text Humidity-text">Somethings about card humidity</p>
+                                <h5 class="card-subtitle my-2 emoji">🍕</h5>
+                                <p class="card-text">Temp: <span class="temp-text"></span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
                             </div>
                         </div>
 
