@@ -4,6 +4,9 @@
 // api url for using longitude and latitude to actually get weather
 // http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=6a9214a29813211a9333c8fd3faf05f4
 
+// api url for current weather
+// https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=6a9214a29813211a9333c8fd3faf05f4
+
 var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
 
@@ -12,17 +15,42 @@ function getWeather(lat, lon){
     // uses lat lon value to retrieve data from api url
     // looks for the weather values from the data retrieved (wind, humidity, temp, rain sunny etc)
     // adds the value to the corresponding cards in html
+        // use queryselector to select all classes for each date, emoji, wind, humidity, temp
+        // if its sunny, change the emoji to sunny, rainy then rain etc
+
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4`
+    fetch(requestUrl)
+    .then(function(response){
+        return response.json();
+    })
+    
+}
+
+function getWeatherForecast(lat, lon){
+    // triggered when the current weather got fetched and displayed
+     // adds the value to the corresponding cards in html
         // use queryselectorall to select all classes for each date, emoji, wind, humidity, temp
         // use for loop to change the content to the data retrieved from the server api
         // if its sunny, change the emoji to sunny, rainy then rain etc
-    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=5&appid=6a9214a29813211a9333c8fd3faf05f4`
+    
+    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=41&appid=6a9214a29813211a9333c8fd3faf05f4`
     fetch(requestUrl)
     .then(function(res){
         return res.json();
     })
     .then(function(data){
+        // setting variables to modify
         var weatherDates = document.querySelectorAll(".weather-date");
+        var emoji = document.querySelectorAll(".emoji");
+        var winds = document.querySelectorAll(".wind-text");
+        var humiditys = document.querySelectorAll(".humidity-text");
+        var temperatures = document.querySelectorAll(".temp-text");
 
+        // iterating through data.list to find right data
+        // for(var i = 0; i < data.list.length; i++){
+        //     weatherDates[i].textContent = data.list[i].dt_txt;
+        //     console.log(data.list)
+        // }
         console.log("weather data: ", data.list);
     })
 }
