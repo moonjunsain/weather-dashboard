@@ -10,12 +10,28 @@
 var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
 var searchHis = document.querySelector("#search-history")
+var clearBtn = document.querySelector("#clear-btn");
+var searchHisArr = [];
 
 // current-emoji
 // current-humidity-text
 // current-wind-text
 // current-temp-text
 
+// if there is something in local storage, retrieve it and apply it to html
+if(localStorage.getItem("history")){
+    // parse it back for the array
+    let storedHis = JSON.parse(localStorage.getItem("history"));
+    for(var i = 0; i < storedHis.length; i++){
+        // create an element to append
+        let historyEl = document.createElement("li")
+        historyEl.textContent = storedHis[i];
+        historyEl.classList.add("list-group-item");
+        historyEl.classList.add("bg-primary");
+        historyEl.classList.add("text-light");
+        searchHis.appendChild(historyEl);
+    }
+}
 
 function getWeather(lat, lon){
     // triggered when the user input was successfully converted to lat lon value (convertToGeo)
@@ -44,6 +60,7 @@ function getWeather(lat, lon){
         // convert unix time to actual time
         var realTime = dayjs(data.dt).format("MMM-D, dddd");
 
+        // set the contents of an element to corresponding data
         cityName.textContent = data.name;
         currentWeatherDt.textContent = realTime;
         currentHumid.textContent = data.main.humidity;
@@ -84,7 +101,7 @@ function getWeatherForecast(lat, lon){
             humiditys[i].textContent = data.list[dataTracker].main.humidity;
             temperatures[i].textContent = data.list[dataTracker].main.temp;
             emoji[i].textContent = data.list[dataTracker].weather[0].icon;
-            // since every 8th index is the next day date
+            // since every 8th index is the next day data
             dataTracker += 8;
         }
     
@@ -107,6 +124,7 @@ function convertToGeo(){
     })
     .then(function(data){
         console.log("geo data: ", data)
+        
         var latitude = data[0].lat;
         var longitude = data[0].lon;
         getWeather(latitude, longitude);
@@ -116,7 +134,7 @@ function convertToGeo(){
 }
 
 function saveHistories(){
-    // triggered when the user presses on search button
+    // triggered after succesfully fulfilling fetching request
     // gets the value from user input and makes li element to store
     // append it to search history ul
     var history = document.createElement("li");
@@ -129,6 +147,14 @@ function saveHistories(){
 
     // append the created element
     searchHis.appendChild(history);
+    
+    // pushes search history to the array if they don't have it already
+    if(!(searchHisArr.includes(history.textContent))){
+        searchHisArr.push(history.textContent);
+    }
+    localStorage.setItem("history", JSON.stringify(searchHisArr))
+    // saves history to local storage
+
 
 }
 
@@ -136,4 +162,16 @@ function saveHistories(){
 searchBtn.addEventListener("click", function(){
     saveHistories();
     convertToGeo()
+})
+
+// user clicks clear button
+clearBtn.addEventListener("click", function(){
+    // clears local storage
+    localStorage.clear();
+
+    // removes elements
+    var listEl = document.querySelectorAll(".list-group-item");
+    for(var i = 0; i < listEl.length; i++){
+        listEl[i].remove();
+    }
 })
