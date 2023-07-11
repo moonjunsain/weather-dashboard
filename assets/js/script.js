@@ -76,7 +76,16 @@ function getWeatherForecast(lat, lon){
         var humiditys = document.querySelectorAll(".humidity-text");
         var temperatures = document.querySelectorAll(".temp-text");
         // iterating through data.list to find right data
-        
+        var dataTracker = 0;
+        for(var i = 0; i < weatherDates.length; i++){
+            weatherDates[i].textContent = dayjs(data.list[dataTracker].dt_txt).format("MMM-D, ddd");
+            winds[i].textContent = data.list[dataTracker].wind.speed;
+            humiditys[i].textContent = data.list[dataTracker].main.humidity;
+            temperatures[i].textContent = data.list[dataTracker].main.temp;
+            emoji[i].textContent = data.list[dataTracker].weather[0].icon;
+            // since every 8th index is the next day date
+            dataTracker += 8;
+        }
     
         console.log("weather data: ", data.list);
     })
@@ -105,4 +114,12 @@ function convertToGeo(){
 
 }
 
-searchBtn.addEventListener("click", convertToGeo)
+function saveHistories(){
+    
+}
+
+// on click, call convertToGeo and saves histories
+searchBtn.addEventListener("click", function(){
+    saveHistories();
+    convertToGeo()
+})
