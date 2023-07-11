@@ -7,6 +7,8 @@
 // api url for current weather
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=6a9214a29813211a9333c8fd3faf05f4
 
+// image src for icons https://openweathermap.org/img/wn/{icon}.png
+
 var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
 var searchHis = document.querySelector("#search-history")
@@ -46,6 +48,7 @@ function getWeather(lat, lon){
     // adds the value to the corresponding cards in html
         // use queryselector to select all classes for each date, emoji, wind, humidity, temp
         // if its sunny, change the emoji to sunny, rainy then rain etc
+    
 
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
@@ -53,8 +56,7 @@ function getWeather(lat, lon){
         return response.json();
     })
     .then(function(data){
-        // calls to get weather forecast
-        getWeatherForecast(lat, lon);
+        
         // selectors to modify contents
         var currentWeatherDt = document.querySelector(".current-weather-date");
         var currentHumid = document.querySelector(".current-humidity-text");
@@ -72,7 +74,7 @@ function getWeather(lat, lon){
         currentHumid.textContent = data.main.humidity;
         currentWind.textContent = data.wind.speed;
         currentTemp.textContent = data.main.temp;
-        currentEmoji.textContent = data.weather[0].icon;
+        currentEmoji.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
         
 
         console.log("current weather ", data);
@@ -81,7 +83,7 @@ function getWeather(lat, lon){
 }
 
 function getWeatherForecast(lat, lon){
-    // triggered when the current weather got fetched and displayed
+    // triggered when the current weather gets activated
     // adds the value to the corresponding cards in html
         // use queryselectorall to select all classes for each date, emoji, wind, humidity, temp
         // use for loop to change the content to the data retrieved from the server api
@@ -106,7 +108,7 @@ function getWeatherForecast(lat, lon){
             winds[i].textContent = data.list[dataTracker].wind.speed;
             humiditys[i].textContent = data.list[dataTracker].main.humidity;
             temperatures[i].textContent = data.list[dataTracker].main.temp;
-            emoji[i].textContent = data.list[dataTracker].weather[0].icon;
+            emoji[i].src = `https://openweathermap.org/img/wn/${data.list[dataTracker].weather[0].icon}.png`;
             // since every 8th index is the next day data
             dataTracker += 8;
         }
@@ -134,7 +136,10 @@ function convertToGeo(){
         
         var latitude = data[0].lat;
         var longitude = data[0].lon;
+        // calls to get current weather
         getWeather(latitude, longitude);
+        // calls to get weather forecast
+        getWeatherForecast(latitude, longitude);
     })
 
 
@@ -202,6 +207,8 @@ function convertUnits(){
         for(var i = 0; i < charEl.length; i ++){
             charEl[i].textContent = "F";
         }
+        
+    // if the unit is currently F
     } else {
         currentTempConverted = (currentTempConverted - 32) * (5/9);
         currentTempConverted = Number(currentTempConverted.toFixed(2));
