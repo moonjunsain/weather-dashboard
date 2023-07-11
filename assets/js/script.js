@@ -18,6 +18,7 @@ var convertBtn = document.querySelector("#convert-btn");
 
 // variable to check if the user has loaded the weather at least once
 var didLoad = false;
+
 // variable for unit reference (celsius or fahrenheit)
 var unitRef = document.querySelector("#unit-ref");
 
@@ -29,15 +30,21 @@ var unitRef = document.querySelector("#unit-ref");
 // if there is something in local storage, retrieve it and apply it to html
 if(localStorage.getItem("history")){
     // parse it back for the array
-    let storedHis = JSON.parse(localStorage.getItem("history"));
-    for(var i = 0; i < storedHis.length; i++){
+    searchHisArr = JSON.parse(localStorage.getItem("history"));
+    for(var i = 0; i < searchHisArr.length; i++){
         // create an element to append
         let historyEl = document.createElement("li")
-        historyEl.textContent = storedHis[i];
+        historyEl.textContent = searchHisArr[i];
         historyEl.classList.add("list-group-item");
         historyEl.classList.add("bg-primary");
         historyEl.classList.add("text-light");
+        historyEl.classList.add("btn");
         searchHis.appendChild(historyEl);
+        historyEl.addEventListener("click", function(){
+            getFromHistory(this.textContent);
+        })
+
+        
     }
 }
 
@@ -56,7 +63,9 @@ function getWeather(lat, lon){
         return response.json();
     })
     .then(function(data){
-        
+        // saves history only when it was valid input
+        saveHistories();
+
         // selectors to modify contents
         var currentWeatherDt = document.querySelector(".current-weather-date");
         var currentHumid = document.querySelector(".current-humidity-text");
@@ -118,7 +127,7 @@ function getWeatherForecast(lat, lon){
     })
 }
 
-function convertToGeo(){
+function convertToGeo(value = searchIn.value){
     // triggered when the user clicks on the search btn
     // gets the value from the user input
     // adds the value to the search history
@@ -126,12 +135,13 @@ function convertToGeo(){
     // convert the user entered search input to longitude and latitude by using geo api
     // after getting the right data, call getWeather function with the acquired values => getWeather(lat, lon) 
 
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchIn.value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
+    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
     fetch(requestUrl)
     .then(function(response){
         return response.json();
     })
     .then(function(data){
+        
         console.log("geo data: ", data)
         
         var latitude = data[0].lat;
@@ -145,7 +155,7 @@ function convertToGeo(){
 
 }
 
-function saveHistories(){
+function saveHistories(value = searchIn.value){
     // triggered after succesfully fulfilling fetching request
     // gets the value from user input and makes li element to store
     // append it to search history ul
@@ -155,17 +165,27 @@ function saveHistories(){
     // append the created element
     
     // pushes search history to the array if they don't have it already
-    if(!(searchHisArr.includes(searchIn.value))){
+    if(!(searchHisArr.includes(value))){
         var history = document.createElement("li");
         history.textContent = searchIn.value;
         history.classList.add("list-group-item");
         history.classList.add("bg-primary");
         history.classList.add("text-light");
+        history.classList.add("btn");
         searchHis.appendChild(history);
         searchHisArr.push(history.textContent);
+
+        // adds event listener to it
+        history.addEventListener("click", function(){
+            // display that instead
+            getFromHistory(this.textContent);
+        })
+
+        console.log("search history array", searchHisArr)
+        // saves history to local storage
         localStorage.setItem("history", JSON.stringify(searchHisArr))
     }
-    // saves history to local storage
+
 
 
 }
@@ -227,9 +247,17 @@ function convertUnits(){
     }
 }
 
+function getFromHistory(value){
+    // triggered when the user clicks on one of the search histories
+    // passes the this.value to convertToGeo
+    convertToGeo(value);
+}
+
+
+
 // on click, call convertToGeo and saves histories
 searchBtn.addEventListener("click", function(){
-    saveHistories();
+    
     convertToGeo()
 })
 
