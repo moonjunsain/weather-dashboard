@@ -9,6 +9,7 @@
 
 var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
+var searchHis = document.querySelector("#search-history")
 
 // current-emoji
 // current-humidity-text
@@ -115,7 +116,20 @@ function convertToGeo(){
 }
 
 function saveHistories(){
-    
+    // triggered when the user presses on search button
+    // gets the value from user input and makes li element to store
+    // append it to search history ul
+    var history = document.createElement("li");
+    history.textContent = searchIn.value;
+
+    // add classes to element
+    history.classList.add("list-group-item");
+    history.classList.add("bg-primary");
+    history.classList.add("text-light");
+
+    // append the created element
+    searchHis.appendChild(history);
+
 }
 
 // on click, call convertToGeo and saves histories
