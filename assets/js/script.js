@@ -12,6 +12,12 @@ var searchBtn = document.querySelector("#search-btn");
 var searchHis = document.querySelector("#search-history")
 var clearBtn = document.querySelector("#clear-btn");
 var searchHisArr = [];
+var convertBtn = document.querySelector("#convert-btn");
+
+// variable to check if the user has loaded the weather at least once
+var didLoad = false;
+// variable for unit reference (celsius or fahrenheit)
+var unitRef = document.querySelector("#unit-ref");
 
 // current-emoji
 // current-humidity-text
@@ -58,7 +64,7 @@ function getWeather(lat, lon){
         var cityName = document.querySelector("#city-name");
 
         // convert unix time to actual time
-        var realTime = dayjs(data.dt).format("MMM-D, dddd");
+        var realTime = dayjs.unix(data.dt).format("MMM-D, dddd");
 
         // set the contents of an element to corresponding data
         cityName.textContent = data.name;
@@ -76,7 +82,7 @@ function getWeather(lat, lon){
 
 function getWeatherForecast(lat, lon){
     // triggered when the current weather got fetched and displayed
-     // adds the value to the corresponding cards in html
+    // adds the value to the corresponding cards in html
         // use queryselectorall to select all classes for each date, emoji, wind, humidity, temp
         // use for loop to change the content to the data retrieved from the server api
         // if its sunny, change the emoji to sunny, rainy then rain etc
@@ -104,7 +110,8 @@ function getWeatherForecast(lat, lon){
             // since every 8th index is the next day data
             dataTracker += 8;
         }
-    
+        // the user now loaded weather at least once
+        didLoad = true;
         console.log("weather data: ", data.list);
     })
 }
@@ -137,25 +144,80 @@ function saveHistories(){
     // triggered after succesfully fulfilling fetching request
     // gets the value from user input and makes li element to store
     // append it to search history ul
-    var history = document.createElement("li");
-    history.textContent = searchIn.value;
-
+    
     // add classes to element
-    history.classList.add("list-group-item");
-    history.classList.add("bg-primary");
-    history.classList.add("text-light");
-
+    
     // append the created element
-    searchHis.appendChild(history);
     
     // pushes search history to the array if they don't have it already
-    if(!(searchHisArr.includes(history.textContent))){
+    if(!(searchHisArr.includes(searchIn.value))){
+        var history = document.createElement("li");
+        history.textContent = searchIn.value;
+        history.classList.add("list-group-item");
+        history.classList.add("bg-primary");
+        history.classList.add("text-light");
+        searchHis.appendChild(history);
         searchHisArr.push(history.textContent);
+        localStorage.setItem("history", JSON.stringify(searchHisArr))
     }
-    localStorage.setItem("history", JSON.stringify(searchHisArr))
     // saves history to local storage
 
 
+}
+
+function convertUnits(){
+    // if the current unit is celsius, change to fahrenheit (if unitRef == 'C' or 'F')
+    // if it's in fahrenheit, change to celsius
+    // apply the changes to .temp-text and .temp-unit
+    // selectors for forecasts
+    let tempElem = document.querySelectorAll(".temp-text");
+
+    // selectors for the letter C
+    let charEl = document.querySelectorAll(".temp-unit");
+
+    // selectors for current
+    let currentTemp = document.querySelector(".current-temp-text")
+    let currentTempConverted = parseFloat(currentTemp.textContent);
+
+    // if current unit is C
+    if(unitRef.textContent == 'C'){
+        
+        currentTempConverted = (currentTempConverted * (9/5)) + 32;
+        currentTempConverted = Number(currentTempConverted.toFixed(2));
+        currentTemp.textContent = currentTempConverted;
+
+        for(var i = 0; i < tempElem.length; i ++){
+            // celsius to fahrenheit
+            // parse to actual number
+            let celNumConverted = parseFloat(tempElem[i].textContent)
+            // conversion
+            celNumConverted = (celNumConverted * (9/5)) + 32;
+            // round to 100th 
+            celNumConverted = Number(celNumConverted.toFixed(2));
+            // push to text content
+            tempElem[i].textContent = celNumConverted;
+        }
+
+        // changes C to F
+        for(var i = 0; i < charEl.length; i ++){
+            charEl[i].textContent = "F";
+        }
+    } else {
+        currentTempConverted = (currentTempConverted - 32) * (5/9);
+        currentTempConverted = Number(currentTempConverted.toFixed(2));
+        currentTemp.textContent = currentTempConverted;
+
+        for(var i = 0; i < tempElem.length; i++){
+            let farNumconverted = parseFloat(tempElem[i].textContent)
+            farNumconverted = (farNumconverted - 32) * (5/9);
+            farNumconverted = Number(farNumconverted.toFixed(2));
+            tempElem[i].textContent = farNumconverted;
+        }
+
+        for(var i = 0; i < charEl.length; i++){
+            charEl[i].textContent = "C";
+        }
+    }
 }
 
 // on click, call convertToGeo and saves histories
@@ -173,5 +235,13 @@ clearBtn.addEventListener("click", function(){
     var listEl = document.querySelectorAll(".list-group-item");
     for(var i = 0; i < listEl.length; i++){
         listEl[i].remove();
+    }
+})
+
+// to convert celcius to farenheight
+convertBtn.addEventListener("click", function(){
+    // if the user has loaded weather at least once=
+    if(didLoad){
+        convertUnits();
     }
 })

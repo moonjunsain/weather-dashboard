@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+
     <!-- day js -->
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -31,7 +32,7 @@
                     <input id="search-input" class="my-2 p-1" type="text" placeholder="San Diego" style="width: 90%;">
                     <button id="search-btn" class="p-1 btn btn-primary" style="width: 90%;">Search</button>
                     <hr style="width: 90%;">
-                    <h3>Search History</h2>
+                    <h3>Search History</h3>
                     <ul id="search-history" class="list-group" style="width: 90%;">
                         
                     </ul>
@@ -40,10 +41,10 @@
             <div class="col-8">
                 <!-- 2 rows, 1 for city name part, 1 for weather cards -->
                 <div class="border border-primary border-3 p-2 mb-5 rounded" style="height: 30vh;">
-                        <h2 class="fw-bold"><span id="city-name">Atlanta</span> (<span class="current-weather-date"></span>) <span class="current-emoji">🍕</span></h2>
-                        <h3>Temp: <span class="current-temp-text"></span></h3>
-                        <h3>Wind: <span class="current-wind-text"></span></h3>
-                        <h3>Humidity: <span class="current-humidity-text"></span></h3>
+                        <h2 id="big-row" class="fw-bold"><span id="city-name">City Name</span> (<span class="current-weather-date"></span>) <span class="current-emoji">🍕</span></h2>
+                        <h3>Temp: <span class="current-temp-text"></span>&deg;<span id="unit-ref" class="temp-unit">C</span></h3>
+                        <h3>Wind: <span class="current-wind-text"></span> MPH</h3>
+                        <h3>Humidity: <span class="current-humidity-text"></span> %</h3>
                 </div>
                 
                 <div class="row">
@@ -54,50 +55,50 @@
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
                                 <h5 class="card-subtitle my-2 emoji">🍕</h5>
-                                <p class="card-text">Temp: <span class="temp-text"></span></p>
-                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
-                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
+                                <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span> MPH</p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span> %</p>
                             </div>
                         </div>
                         <div class="card" style="width: 20%; margin-right: 1%;"> 
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
                                 <h5 class="card-subtitle my-2 emoji">🍕</h5>
-                                <p class="card-text">Temp: <span class="temp-text"></span></p>
-                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
-                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
+                                <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span> MPH</p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span> %</p>
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%; margin-right: 1%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
                                 <h5 class="card-subtitle my-2 emoji">🍕</h5>
-                                <p class="card-text">Temp: <span class="temp-text"></span></p>
-                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
-                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
+                                <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span> MPH</p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span> %</p>
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%; margin-right: 1%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
                                 <h5 class="card-subtitle my-2 emoji">🍕</h5>
-                                <p class="card-text">Temp: <span class="temp-text"></span></p>
-                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
-                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
+                                <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span>MPH</p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span> %</p>
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%;">
                             <div class="card-body">
                                 <h4 class="card-title weather-date">Weather</h4>
                                 <h5 class="card-subtitle my-2 emoji">🍕</h5>
-                                <p class="card-text">Temp: <span class="temp-text"></span></p>
-                                <p class="card-text ">Wind: <span class="wind-text"></span></p>
-                                <p class="card-text">Humidity: <span class="humidity-text"></span></p>
+                                <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
+                                <p class="card-text ">Wind: <span class="wind-text"></span> MPH</p>
+                                <p class="card-text">Humidity: <span class="humidity-text"></span> %</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
+                <button id="convert-btn" class="btn btn-warning my-3">Convert Temperature Units</button>
             </div>
         </section>
     </main>
