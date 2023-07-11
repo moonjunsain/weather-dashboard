@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <!-- day js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
@@ -33,10 +39,10 @@
             <div class="col-8">
                 <!-- 2 rows, 1 for city name part, 1 for weather cards -->
                 <div class="border border-primary border-3 p-2 mb-5 rounded" style="height: 30vh;">
-                        <h2 id="city-name" class="fw-bold">Atlanta (<span class="weather-date"></span>) <span class="emoji">🍕</span></h2>
-                        <h3>Temp: <span class="temp-text"></span></h3>
-                        <h3>Wind: <span class="wind-text"></span></h3>
-                        <h3>Humidity: <span class="humidity-text"></span></h3>
+                        <h2 class="fw-bold"><span id="city-name">Atlanta</span> (<span class="current-weather-date"></span>) <span class="current-emoji">🍕</span></h2>
+                        <h3>Temp: <span class="current-temp-text"></span></h3>
+                        <h3>Wind: <span class="current-wind-text"></span></h3>
+                        <h3>Humidity: <span class="current-humidity-text"></span></h3>
                 </div>
                 
                 <div class="row">

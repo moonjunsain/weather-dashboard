@@ -10,6 +10,12 @@
 var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
 
+// current-emoji
+// current-humidity-text
+// current-wind-text
+// current-temp-text
+
+
 function getWeather(lat, lon){
     // triggered when the user input was successfully converted to lat lon value (convertToGeo)
     // uses lat lon value to retrieve data from api url
@@ -18,10 +24,34 @@ function getWeather(lat, lon){
         // use queryselector to select all classes for each date, emoji, wind, humidity, temp
         // if its sunny, change the emoji to sunny, rainy then rain etc
 
-    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4`
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(response){
         return response.json();
+    })
+    .then(function(data){
+        // calls to get weather forecast
+        getWeatherForecast(lat, lon);
+        // selectors to modify contents
+        var currentWeatherDt = document.querySelector(".current-weather-date");
+        var currentHumid = document.querySelector(".current-humidity-text");
+        var currentWind = document.querySelector(".current-wind-text");
+        var currentTemp = document.querySelector(".current-temp-text");
+        var currentEmoji = document.querySelector(".current-emoji");
+        var cityName = document.querySelector("#city-name");
+
+        // convert unix time to actual time
+        var realTime = dayjs(data.dt).format("MMM-D, dddd");
+
+        cityName.textContent = data.name;
+        currentWeatherDt.textContent = realTime;
+        currentHumid.textContent = data.main.humidity;
+        currentWind.textContent = data.wind.speed;
+        currentTemp.textContent = data.main.temp;
+        currentEmoji.textContent = data.weather[0].icon;
+        
+
+        console.log("current weather ", data);
     })
     
 }
@@ -33,7 +63,7 @@ function getWeatherForecast(lat, lon){
         // use for loop to change the content to the data retrieved from the server api
         // if its sunny, change the emoji to sunny, rainy then rain etc
     
-    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=41&appid=6a9214a29813211a9333c8fd3faf05f4`
+    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(res){
         return res.json();
@@ -45,12 +75,9 @@ function getWeatherForecast(lat, lon){
         var winds = document.querySelectorAll(".wind-text");
         var humiditys = document.querySelectorAll(".humidity-text");
         var temperatures = document.querySelectorAll(".temp-text");
-
         // iterating through data.list to find right data
-        // for(var i = 0; i < data.list.length; i++){
-        //     weatherDates[i].textContent = data.list[i].dt_txt;
-        //     console.log(data.list)
-        // }
+        
+    
         console.log("weather data: ", data.list);
     })
 }
@@ -63,7 +90,7 @@ function convertToGeo(){
     // convert the user entered search input to longitude and latitude by using geo api
     // after getting the right data, call getWeather function with the acquired values => getWeather(lat, lon) 
 
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchIn.value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4`;
+    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchIn.value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
     fetch(requestUrl)
     .then(function(response){
         return response.json();
