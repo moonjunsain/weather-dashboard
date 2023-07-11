@@ -48,7 +48,7 @@ if(localStorage.getItem("history")){
     }
 }
 
-function getWeather(lat, lon){
+function getWeather(lat, lon, doSave = true){
     // triggered when the user input was successfully converted to lat lon value (convertToGeo)
     // uses lat lon value to retrieve data from api url
     // looks for the weather values from the data retrieved (wind, humidity, temp, rain sunny etc)
@@ -64,7 +64,10 @@ function getWeather(lat, lon){
     })
     .then(function(data){
         // saves history only when it was valid input
-        saveHistories();
+        // only save if this function got triggered from search button not histories
+        if(doSave){
+            saveHistories();
+        }
 
         // selectors to modify contents
         var currentWeatherDt = document.querySelector(".current-weather-date");
@@ -127,7 +130,7 @@ function getWeatherForecast(lat, lon){
     })
 }
 
-function convertToGeo(value = searchIn.value){
+function convertToGeo(value = searchIn.value, doSave = true){
     // triggered when the user clicks on the search btn
     // gets the value from the user input
     // adds the value to the search history
@@ -147,7 +150,7 @@ function convertToGeo(value = searchIn.value){
         var latitude = data[0].lat;
         var longitude = data[0].lon;
         // calls to get current weather
-        getWeather(latitude, longitude);
+        getWeather(latitude, longitude, doSave);
         // calls to get weather forecast
         getWeatherForecast(latitude, longitude);
     })
@@ -250,7 +253,7 @@ function convertUnits(){
 function getFromHistory(value){
     // triggered when the user clicks on one of the search histories
     // passes the this.value to convertToGeo
-    convertToGeo(value);
+    convertToGeo(value, false);
 }
 
 
