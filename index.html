@@ -27,7 +27,7 @@
     <main>
         <!-- one big row that will have 2 columns  -->
         <section class="row d-flex justify-content-center">
-            <div class="col-3 d-block">
+            <div class="col-12 col-md-3 d-block">
                     <h2 class="fw-bold">Search for City: </h2>
                     <input id="search-input" class="my-2 p-1" type="text" placeholder="San Diego" style="width: 90%;">
                     <button id="search-btn" class="p-1 btn btn-primary" style="width: 90%;">Search</button>
@@ -38,7 +38,7 @@
                     </ul>
                     <button id="clear-btn" class="btn btn-danger">Clear</button>
             </div>
-            <div class="col-8">
+            <div class="col-12 col-md-8">
                 <!-- 2 rows, 1 for city name part, 1 for weather cards -->
                 <div class="border border-primary border-3 p-2 mb-5 rounded" style="height: 30vh;">
                         <h2 id="big-row" class="fw-bold"><span id="city-name">City Name</span> (<span class="current-weather-date">Date</span>) <span><img class="current-emoji" src="https://openweathermap.org/img/wn/04d.png" alt="icon"></span></h2>
@@ -50,9 +50,9 @@
                 <div class="row">
                     <h3 class="fw-bold">5-Day Forecast:</h3>
                     <!-- make 5 cards -->
-                    <div class="d-flex justify-content-evenly">
+                    <div class="d-flex justify-content-evenly custom-card-container">
                         <div class="card" style="width: 20%; margin-right: 1%;">
-                            <div class="card-body">
+                            <div class="card-body custom-card">
                                 <h4 class="card-title weather-date">Day 1</h4>
                                 <h5 class="card-subtitle my-2"><img class="emoji" src="https://openweathermap.org/img/wn/03d.png" alt="icon"></h5>
                                 <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="card" style="width: 20%; margin-right: 1%;"> 
-                            <div class="card-body">
+                            <div class="card-body custom-card">
                                 <h4 class="card-title weather-date">Day 2</h4>
                                 <h5 class="card-subtitle my-2"><img class="emoji" src="https://openweathermap.org/img/wn/02d.png" alt="icon"></h5>
                                 <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%; margin-right: 1%;">
-                            <div class="card-body">
+                            <div class="card-body custom-card">
                                 <h4 class="card-title weather-date">Day 3</h4>
                                 <h5 class="card-subtitle my-2"><img class="emoji" src="https://openweathermap.org/img/wn/01d.png" alt="icon"></h5>
                                 <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%; margin-right: 1%;">
-                            <div class="card-body">
+                            <div class="card-body custom-card">
                                 <h4 class="card-title weather-date">Day 4</h4>
                                 <h5 class="card-subtitle my-2"><img class="emoji" src="https://openweathermap.org/img/wn/50d.png" alt="icon"></h5>
                                 <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="card mx-1" style="width: 20%;">
-                            <div class="card-body">
+                            <div class="card-body custom-card">
                                 <h4 class="card-title weather-date">Day 5</h4>
                                 <h5 class="card-subtitle my-2"><img class="emoji" src="https://openweathermap.org/img/wn/10d.png" alt="icon"></h5>
                                 <p class="card-text">Temp: <span class="temp-text"></span>&deg;<span class="temp-unit">C</span></p>

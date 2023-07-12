@@ -8,3 +8,12 @@ body {
     overflow-x: hidden;
     font-family: 'Rubik', sans-serif;
 }
+
+@media (max-width: 768px) {
+    /* CSS rules for screens up to 768px width */
+    .custom-card-container{
+        flex-direction: column;
+        margin-bottom: 1%;
+    }
+}
+

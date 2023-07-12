@@ -13,8 +13,8 @@ var searchIn = document.querySelector("#search-input");
 var searchBtn = document.querySelector("#search-btn");
 var searchHis = document.querySelector("#search-history")
 var clearBtn = document.querySelector("#clear-btn");
-var searchHisArr = [];
 var convertBtn = document.querySelector("#convert-btn");
+var searchHisArr = [];
 
 // variable to check if the user has loaded the weather at least once
 var didLoad = false;
@@ -22,10 +22,6 @@ var didLoad = false;
 // variable for unit reference (celsius or fahrenheit)
 var unitRef = document.querySelector("#unit-ref");
 
-// current-emoji
-// current-humidity-text
-// current-wind-text
-// current-temp-text
 
 // if there is something in local storage, retrieve it and apply it to html
 if(localStorage.getItem("history")){
@@ -41,6 +37,7 @@ if(localStorage.getItem("history")){
         historyEl.classList.add("btn");
         searchHis.appendChild(historyEl);
         historyEl.addEventListener("click", function(){
+            resetTempUnit();
             getFromHistory(this.textContent);
         })
 
@@ -68,6 +65,8 @@ function getWeather(lat, lon, doSave = true){
         if(doSave){
             saveHistories();
         }
+        // resets temperature unit
+        resetTempUnit();
 
         // selectors to modify contents
         var currentWeatherDt = document.querySelector(".current-weather-date");
@@ -256,11 +255,17 @@ function getFromHistory(value){
     convertToGeo(value, false);
 }
 
+function resetTempUnit(){
+    // change all the temp units back to C
+    var charEl = document.querySelectorAll(".temp-unit");
+    for(var i = 0; i < charEl.length; i ++){
+        charEl[i].textContent = "C";
+    }
+}
 
 
 // on click, call convertToGeo and saves histories
 searchBtn.addEventListener("click", function(){
-    
     convertToGeo()
 })
 
