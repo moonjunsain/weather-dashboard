@@ -101,7 +101,7 @@ function getWeatherForecast(lat, lon){
         // use for loop to change the content to the data retrieved from the server api
         // if its sunny, change the emoji to sunny, rainy then rain etc
     
-    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
+    var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(res){
         console.log("RESPONSE ", response)
@@ -151,7 +151,7 @@ function convertToGeo(value = searchIn.value, doSave = true){
     // convert the user entered search input to longitude and latitude by using geo api
     // after getting the right data, call getWeather function with the acquired values => getWeather(lat, lon) 
 
-    var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
+    var requestUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
     fetch(requestUrl)
     .then(function(response){
         console.log("RESPONSE ", response)
