@@ -116,10 +116,10 @@ function getWeatherForecast(lat, lon){
         // iterating through data.list to find right data
          
         var startIndex = 0;
-        var currDay = dayjs().$D;
+        var currDay = dayjs().date();
         // makes sure that start index is the next day.
         for(var i = 0; i < data.list.length; i++){
-            if (dayjs(data.list[i].dt_txt).$D > currDay) {
+            if (dayjs(data.list[i].dt_txt).date() > currDay) {
                 startIndex = i;
                 break;
                 
