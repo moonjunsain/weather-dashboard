@@ -107,13 +107,25 @@ function getWeatherForecast(lat, lon){
     })
     .then(function(data){
         // setting variables to modify
+        console.log("DATA: ", data.list)
         var weatherDates = document.querySelectorAll(".weather-date");
         var emoji = document.querySelectorAll(".emoji");
         var winds = document.querySelectorAll(".wind-text");
         var humiditys = document.querySelectorAll(".humidity-text");
         var temperatures = document.querySelectorAll(".temp-text");
         // iterating through data.list to find right data
-        var dataTracker = 0;
+         
+        var startIndex = 0;
+        var currDay = dayjs().$D;
+        for(var i = 0; i < data.list.length; i++){
+            if (dayjs(data.list[i].dt_txt).$D > currDay) {
+                startIndex = i;
+                break;
+                
+            }
+        }
+
+        var dataTracker = startIndex;
         for(var i = 0; i < weatherDates.length; i++){
             weatherDates[i].textContent = dayjs(data.list[dataTracker].dt_txt).format("MMM-D, ddd");
             winds[i].textContent = data.list[dataTracker].wind.speed;
@@ -288,3 +300,4 @@ convertBtn.addEventListener("click", function(){
         convertUnits();
     }
 })
+
