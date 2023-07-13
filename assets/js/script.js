@@ -104,7 +104,6 @@ function getWeatherForecast(lat, lon){
     var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(res){
-        console.log("RESPONSE ", response)
         return res.json();
     })
     .then(function(data){
