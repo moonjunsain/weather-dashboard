@@ -57,6 +57,7 @@ function getWeather(lat, lon, doSave = true){
     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(response){
+        console.log("RESPONSE ", response)
         return response.json();
     })
     .then(function(data){
@@ -103,11 +104,11 @@ function getWeatherForecast(lat, lon){
     var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`
     fetch(requestUrl)
     .then(function(res){
+        console.log("RESPONSE ", response)
         return res.json();
     })
     .then(function(data){
         // setting variables to modify
-        console.log("DATA: ", data.list)
         var weatherDates = document.querySelectorAll(".weather-date");
         var emoji = document.querySelectorAll(".emoji");
         var winds = document.querySelectorAll(".wind-text");
@@ -153,6 +154,7 @@ function convertToGeo(value = searchIn.value, doSave = true){
     var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=1&appid=6a9214a29813211a9333c8fd3faf05f4&units=metric`;
     fetch(requestUrl)
     .then(function(response){
+        console.log("RESPONSE ", response)
         return response.json();
     })
     .then(function(data){
