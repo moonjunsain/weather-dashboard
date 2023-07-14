@@ -29,7 +29,7 @@ if(localStorage.getItem("history")){
     searchHisArr = JSON.parse(localStorage.getItem("history"));
     for(var i = 0; i < searchHisArr.length; i++){
         // create an element to append
-        let historyEl = document.createElement("li")
+        let historyEl = document.createElement("li") 
         historyEl.textContent = searchHisArr[i];
         historyEl.classList.add("list-group-item");
         historyEl.classList.add("bg-primary");
@@ -126,7 +126,7 @@ function getWeatherForecast(lat, lon){
             }
         }
 
-        var dataTracker = startIndex;
+        var dataTracker = startIndex; // 0
         for(var i = 0; i < weatherDates.length; i++){
             weatherDates[i].textContent = dayjs(data.list[dataTracker].dt_txt).format("MMM-D, ddd");
             winds[i].textContent = data.list[dataTracker].wind.speed;
@@ -303,3 +303,6 @@ convertBtn.addEventListener("click", function(){
     }
 })
 
+
+        
+        

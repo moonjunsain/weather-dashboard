@@ -13,26 +13,22 @@
 ## Description 
 This is a product of a challenge provided by UC Berkeley Extension Coding Bootcamp
 
-This is for making a daily scheduler.
-It has input areas for each time from 9AM to 5PM and the user can input using their keyboard. 
-The user also has option to save them on their local storage so when they reload the page it will display on the corresponding time block.
+This is for displaying weather dashboard.
+It has input areas for the city the user want to search for. 
+The user can find the search result in the card on the right, the current day weather and 5 day forecast for that city.
 
 This was done while trying to accomplish following criteria:
 
 ### Acceptance Criteria
-    - GIVEN I am using a daily planner to create a schedule
-    1. WHEN I open the planner
-    THEN the current day is displayed at the top of the calendar
-    2. WHEN I scroll down
-    THEN I am presented with time blocks for standard business hours of 9am to 5pm
-    3. WHEN I view the time blocks for that day
-    THEN each time block is color-coded to indicate whether it is in the past, present, or future
-    4. WHEN I click into a time block
-    THEN I can enter an event
-    5. WHEN I click the save button for that time block
-    THEN the text for that event is saved in local storage
-    6. WHEN I refresh the page
-    THEN the saved events persist
+    - GIVEN a weather dashboard with form inputs
+    1. WHEN I search for a city
+    THEN I am presented with current and future conditions for that city and that city is added to the search history
+    2. WHEN I view current weather conditions for that city
+    THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+    3. WHEN I view future weather conditions for that city
+    THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+    4. WHEN I click on a city in the search history
+    THEN I am again presented with current and future conditions for that city
 
 
 ### Deployed Website
@@ -58,15 +54,15 @@ N/A
 ## Usage 
 
 Following is the demo of this app.
-The user can use mouse to click the text box, type in whatever they want to save, and when they press on save button it will save the text inside that text box.
-As shown in the following demo, when the user refreshes the page, it stays where the user saved information.
+The user can search a city name in the input, and when the user clicks the search button, it displays current weather for that city followed by 5 day forecast for that city. The search history gets saved (no duplicate) to the local storage, and the user can click the history to get back the result. The user can also clear the history, and convert temperature units to celsius or fahrenheit 
 
-![demo](#)
+![demo](./weather-board-demo.gif)
 
 
 ## Learning Points
-1. The use of "this" keyword as a jQuery pointer to navigate to the element that I want to modify
-2. The use of for loop to iterate by using + i for id of the element
+1. Use of api to extract data that I need from server side api
+2. The root address http and https matter
+3. Reading documentation from api host website 
 
 
 
